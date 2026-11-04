@@ -1,0 +1,27 @@
+test_01_protected_access (test_app.ApplicationTests.test_01_protected_access) ... ok
+test_02_login_logout (test_app.ApplicationTests.test_02_login_logout) ... ok
+test_03_csrf_rejected (test_app.ApplicationTests.test_03_csrf_rejected) ... ok
+test_04_demand_and_persistence (test_app.ApplicationTests.test_04_demand_and_persistence) ... ok
+test_05_invalid_demand (test_app.ApplicationTests.test_05_invalid_demand) ... ok
+test_06_history (test_app.ApplicationTests.test_06_history) ... ok
+test_07_filters (test_app.ApplicationTests.test_07_filters) ... ok
+test_08_incident_optional_link (test_app.ApplicationTests.test_08_incident_optional_link) ... ok
+test_09_incident_missing_link_rejected (test_app.ApplicationTests.test_09_incident_missing_link_rejected) ... ok
+test_10_incident_closure (test_app.ApplicationTests.test_10_incident_closure) ... ok
+test_11_xss_and_sql_parameters (test_app.ApplicationTests.test_11_xss_and_sql_parameters) ... ok
+test_12_backup (test_app.ApplicationTests.test_12_backup) ... ok
+test_13_api_and_not_found (test_app.ApplicationTests.test_13_api_and_not_found) ... ok
+test_14_overdue_excludes_closed (test_app.ApplicationTests.test_14_overdue_excludes_closed) ... ok
+test_delete_parent_blocked (test_banco.DatabaseTests.test_delete_parent_blocked) ... ok
+test_demo_crud_and_queries (test_banco.DatabaseTests.test_demo_crud_and_queries) ... ok
+test_foreign_key_rejects_orphan (test_banco.DatabaseTests.test_foreign_key_rejects_orphan) ... ok
+test_incident_link_optional (test_banco.DatabaseTests.test_incident_link_optional) ... ok
+test_not_null (test_banco.DatabaseTests.test_not_null) ... ok
+test_primary_key_unique (test_banco.DatabaseTests.test_primary_key_unique) ... ok
+test_reopen_existing_schema_preserves_data (test_banco.DatabaseTests.test_reopen_existing_schema_preserves_data) ... ok
+test_rollback_keeps_stage (test_banco.DatabaseTests.test_rollback_keeps_stage) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 1.775s
+
+OK

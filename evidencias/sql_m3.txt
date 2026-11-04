@@ -1,0 +1,35 @@
+Demonstração M3 | SQLite 3.53.1
+Base: :memory: | dados de teste | sem acesso ao banco de uso
+
+descartavel_antes
+1
+
+descartavel_depois
+0
+
+id | title | stage | due
+1 | Post de demonstração A | Em produção | 2026-11-06
+2 | Post de demonstração B | Solicitado | 2026-11-07
+
+id | status | demanda
+1 | Encerrado | Post de demonstração A
+2 | Aberto | Sem demanda
+
+stage | quantidade
+Em produção | 1
+Solicitado | 1
+
+demand_id | previous_stage | new_stage | happened_at
+1 | NULL | Solicitado | 2026-11-04T12:00:00+00:00
+1 | Solicitado | Em produção | 2026-11-04T13:00:00+00:00
+
+id | title | due
+1 | Post de demonstração A | 2026-11-06
+
+table | rowid | parent | fkid
+(nenhuma linha)
+
+integrity_check
+ok
+
+Conclusão: 2 demandas, 3 eventos, 2 incidentes; registro 99 removido.
