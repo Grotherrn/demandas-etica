@@ -15,21 +15,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 STAGES = ('Solicitado', 'Em produção', 'Em revisão', 'Aguardando aprovação', 'Agendado', 'Publicado', 'Cancelado')
 CATEGORIES = ('Respeito e dignidade', 'Privacidade', 'Uso de IA', 'Desinformação', 'Outro')
-SCHEMA = '''
-PRAGMA foreign_keys=ON;
-CREATE TABLE IF NOT EXISTS demands (
- id INTEGER PRIMARY KEY, title TEXT NOT NULL, client TEXT NOT NULL,
- stage TEXT NOT NULL, due TEXT NOT NULL, notes TEXT NOT NULL DEFAULT '',
- created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS history (
- id INTEGER PRIMARY KEY, demand_id INTEGER NOT NULL REFERENCES demands(id),
- previous_stage TEXT, new_stage TEXT NOT NULL, note TEXT NOT NULL, happened_at TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS incidents (
- id INTEGER PRIMARY KEY, demand_id INTEGER REFERENCES demands(id), title TEXT NOT NULL,
- category TEXT NOT NULL, description TEXT NOT NULL, impact TEXT NOT NULL,
- action TEXT NOT NULL DEFAULT '', lesson TEXT NOT NULL DEFAULT '',
- status TEXT NOT NULL, created_at TEXT NOT NULL, updated_at TEXT NOT NULL);
-'''
+SCHEMA = (Path(__file__).resolve().parent / 'sql' / 'schema.sql').read_text(encoding='utf-8')
 
 def now():
     return datetime.now(timezone.utc).isoformat(timespec='seconds')
