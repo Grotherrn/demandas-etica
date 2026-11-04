@@ -35,12 +35,26 @@ python app.py
 O teste utiliza `unittest` da biblioteca padrão, sem precisar instalar pytest. Cada caso usa diretório temporário e não altera dados do usuário. Evidências em `evidencias/testes.txt`. A base de demonstração usada durante o desenvolvimento é fictícia e não acompanha a instalação.
 
 ## Estrutura
-`app.py`: rotas, validações, regras e banco. `templates`: HTML/Jinja. `static/style.css`: apresentação responsiva sem CDN. `static/app.js`: filtros imediatos e estado dos campos de incidente. `test_app.py`: 14 testes. `docs`: decisões e roteiro de verificação desta versão. `evidencias`: resultados técnicos.
+`app.py`: rotas, validações, regras e banco. `templates`: HTML/Jinja. `static/style.css`: apresentação responsiva sem CDN. `static/app.js`: filtros imediatos e estado dos campos de incidente. `test_app.py` e `test_banco.py`: 22 testes. `docs`: decisões e roteiro de verificação desta versão. `evidencias`: resultados técnicos.
 
 ## Limites desta versão
 Uso por uma pessoa no computador local. Não expor este serviço na internet nem alterar o host para compartilhar em rede sem revisão de transporte e autenticação. A senha de entrada não criptografa o banco; a proteção do arquivo depende da conta do Windows e das permissões da pasta. O controle de tentativas é por sessão e não substitui proteção de serviço público. Acesso pelo Wi-Fi, sincronização e empacotamento como EXE ficam fora desta entrega. Testes de interface visual, uso em Windows e aceitação por Felipe estão pendentes.
 
-Pacote preparado para publicação em repositório GitHub do estudante. O endereço do repositório deverá constar no relatório acadêmico após a publicação.
+Repositório do projeto: https://github.com/Grotherrn/demandas-etica. A publicação de novos incrementos é realizada pelo titular da conta.
 
 ## Interação e acessibilidade na versão M2
 A busca e o filtro por etapa atualizam as linhas já carregadas sem recarregar a página. Use Limpar para retornar ao conjunto carregado. Sem JavaScript, use Filtrar para consulta no servidor. A situação Encerrado exige encaminhamento e aprendizado, tanto no navegador quanto no servidor. O layout possui link Pular para o conteúdo, rótulos de campos, mensagens de status e alerta e tabela com legenda e cabeçalhos. A implementação dessas medidas não equivale a auditoria completa de acessibilidade.
+
+## Banco de dados e controle de versão no M3
+
+O esquema antes embutido em `app.py` agora está em `sql/schema.sql`, carregado pelo aplicativo. Mantenha a pasta `sql` ao copiar ou instalar o código. As tabelas e colunas foram preservadas; dois índices foram acrescentados aos vínculos. A reabertura de uma base preexistente foi testada sem apagar a demanda já gravada.
+
+Para executar a demonstração de inserção, atualização, remoção e consultas, sem acessar o banco de uso:
+
+```bash
+python scripts/demonstrar_banco.py
+```
+
+A demonstração usa somente SQLite em memória, sem bibliotecas adicionais. `sql/demonstracao.sql` contém os comandos; não o execute no banco de uso. O DELETE remove um registro descartável sem dependentes; a aplicação mantém o fluxo sem exclusão física na interface.
+
+Com as dependências instaladas, `python -m unittest -v` executa 22 testes. Resultados em `evidencias/testes_m3.txt` e `evidencias/sql_m3.txt`. O modelo e seu dicionário estão em `docs/modelo_dados_m3.md`; estratégia Git em `docs/versionamento_m3.md`; roteiro de verificação visual em `docs/capturas_m3.md`. O M3 não acrescenta funções de compartilhamento, novos usuários ou integrações externas.

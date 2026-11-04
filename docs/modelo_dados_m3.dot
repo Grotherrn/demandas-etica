@@ -1,0 +1,7 @@
+digraph G {graph [rankdir=TB,bgcolor="white",nodesep=0.6,ranksep=0.8];node [shape=record,fontname="DejaVu Sans",fontsize=11,style=filled,fillcolor="#f2f5f7"];edge [fontname="DejaVu Sans",fontsize=10];
+D[label="{demands|id PK INTEGER\ltitle, client, stage TEXT\ldue, notes TEXT\lcreated_at, updated_at TEXT\l}"];
+H[label="{history|id PK INTEGER\ldemand_id FK NOT NULL\lprevious_stage TEXT anulável\lnew_stage, note TEXT\lhappened_at TEXT\l}"];
+I[label="{incidents|id PK INTEGER\ldemand_id FK anulável\ltitle, category, description TEXT\limpact, action, lesson TEXT\lstatus TEXT\lcreated_at, updated_at TEXT\l}"];
+D->H[label="1 demanda por evento\n0..N eventos por demanda"];
+D->I[label="0..1 demanda por incidente\n0..N incidentes por demanda"];
+}
