@@ -1,4 +1,5 @@
 """Executa SQL do M3 somente em memória, sem ler configurações do aplicativo."""
+from contextlib import closing
 import sqlite3
 from pathlib import Path
 
@@ -22,7 +23,7 @@ def executar(conn):
 
 
 def main():
-    with sqlite3.connect(':memory:') as conn:
+    with closing(sqlite3.connect(':memory:')) as conn, conn:
         print('Demonstração M3 | SQLite', sqlite3.sqlite_version)
         print('Base: :memory: | dados de teste | sem acesso ao banco de uso')
         for columns, rows in executar(conn):

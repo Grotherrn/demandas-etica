@@ -4,6 +4,7 @@ import getpass
 import json
 import os
 import secrets
+from contextlib import closing
 import sqlite3
 import webbrowser
 from datetime import date, datetime, timedelta, timezone
@@ -33,7 +34,7 @@ def create_app(data_dir=None, test_config=None):
                       PERMANENT_SESSION_LIFETIME=timedelta(hours=8), DATA_DIR=str(folder))
     if test_config:
         app.config.update(test_config)
-    with sqlite3.connect(app.config['DATABASE']) as conn:
+    with closing(sqlite3.connect(app.config['DATABASE'])) as conn, conn:
         conn.executescript(SCHEMA)
 
     def db():
@@ -198,7 +199,7 @@ def create_app(data_dir=None, test_config=None):
         backup_dir = folder / 'backups'
         backup_dir.mkdir(exist_ok=True)
         name = 'dados-' + datetime.now().strftime('%Y%m%d-%H%M%S-%f') + '.sqlite3'
-        with sqlite3.connect(backup_dir / name) as dest:
+        with closing(sqlite3.connect(backup_dir / name)) as dest, dest:
             db().backup(dest)
         flash('Cópia de segurança criada na pasta backups dos dados locais.')
         return redirect(url_for('dashboard'))

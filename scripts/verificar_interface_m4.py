@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import shutil
 import socket
+from contextlib import closing
 import sqlite3
 import subprocess
 import sys
@@ -146,7 +147,7 @@ def main():
                 def backup():
                     page.get_by_role('button',name='Criar cópia de segurança').click()
                     b=list((Path(temp)/'backups').glob('*.sqlite3'));assert len(b)==1
-                    with sqlite3.connect(b[0]) as c:
+                    with closing(sqlite3.connect(b[0])) as c, c:
                         assert c.execute('SELECT COUNT(*) FROM demands').fetchone()[0]==2
                         assert c.execute('SELECT COUNT(*) FROM incidents').fetchone()[0]==1
                 check('B08_backup_pelo_fluxo',backup)

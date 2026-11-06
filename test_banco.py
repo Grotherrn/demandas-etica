@@ -1,4 +1,5 @@
 """Verifica SQL, restrições e compatibilidade em bases isoladas."""
+from contextlib import closing
 import sqlite3
 import tempfile
 import unittest
@@ -51,11 +52,11 @@ class DatabaseTests(unittest.TestCase):
     def test_reopen_existing_schema_preserves_data(self):
         with tempfile.TemporaryDirectory() as folder:
             dbfile = Path(folder) / 'dados.sqlite3'
-            with sqlite3.connect(dbfile) as conn:
+            with closing(sqlite3.connect(dbfile)) as conn, conn:
                 conn.executescript(SCHEMA.split('-- Índices')[0])
                 conn.execute("INSERT INTO demands VALUES(1,'Persistir','Ref','Solicitado','2026-11-06','','2026-11-04','2026-11-04')")
             create_app(folder, {'TESTING': True})
-            with sqlite3.connect(dbfile) as conn:
+            with closing(sqlite3.connect(dbfile)) as conn, conn:
                 self.assertEqual(conn.execute('SELECT title FROM demands WHERE id=1').fetchone()[0], 'Persistir')
                 indexes = {r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='index'")}
                 self.assertTrue({'idx_history_demand', 'idx_incidents_demand'} <= indexes)

@@ -35,7 +35,7 @@ python app.py
 O teste utiliza `unittest` da biblioteca padrão, sem precisar instalar pytest. Cada caso usa diretório temporário e não altera dados do usuário. Evidências em `evidencias/testes.txt`. A base de demonstração usada durante o desenvolvimento é fictícia e não acompanha a instalação.
 
 ## Estrutura
-`app.py`: rotas, validações, regras e banco. `templates`: HTML/Jinja. `static/style.css`: apresentação responsiva sem CDN. `static/app.js`: filtros imediatos e estado dos campos de incidente. `test_app.py`, `test_banco.py` e `test_qualidade.py`: 32 testes. `docs`: decisões e roteiro de verificação desta versão. `evidencias`: resultados técnicos.
+`app.py`: rotas, validações, regras e banco. `templates`: HTML/Jinja. `static/style.css`: apresentação responsiva sem CDN. `static/app.js`: filtros imediatos e estado dos campos de incidente. `test_app.py`, `test_banco.py` e `test_qualidade.py`: 33 testes. `docs`: decisões e roteiro de verificação desta versão. `evidencias`: resultados técnicos.
 
 ## Limites desta versão
 Uso por uma pessoa no computador local. Não expor este serviço na internet nem alterar o host para compartilhar em rede sem revisão de transporte e autenticação. A senha de entrada não criptografa o banco; a proteção do arquivo depende da conta do Windows e das permissões da pasta. O controle de tentativas é por sessão e não substitui proteção de serviço público. Acesso pelo Wi-Fi, sincronização e empacotamento como EXE ficam fora desta entrega. Testes de interface visual, uso em Windows e aceitação por Felipe estão pendentes.
@@ -62,3 +62,7 @@ Com as dependências instaladas, `python -m unittest -v` executa 22 testes. Resu
 ## Qualidade no módulo 4
 
 Regressão complementar e correção de vínculo inválido: `docs/qualidade_m4.md`. Resultados de 06/11/2026 em `evidencias/m4/testes_m4.txt` e ambiente em `evidencias/m4/ambiente.json`. Foram aprovados 32 testes técnicos em Linux. A execução do roteiro de navegador e a validação por Felipe permanecem pendentes; capturas anteriores documentam apenas os estados nelas visíveis.
+
+### Reparo Windows
+
+Fechamento explícito de conexões SQLite e regressão Q11. A suíte passou com 33 testes no Linux; confirmação no Windows pendente. Ver `docs/qualidade_m4.md` e `evidencias/m4/testes_reparo_linux.txt`.

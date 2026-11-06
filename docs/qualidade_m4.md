@@ -39,3 +39,13 @@ python scripts/verificar_interface_m4.py
 O script inicia servidor temporário em loopback com banco descartável e encerra o servidor ao final. Não usa dados do usuário. O relatório JSON distingue aprovado e falhou; capturas ficam em evidencias/m4/interface. O resultado nunca equivale a aceite por Felipe, teste de zoom nativo ou certificação WCAG.
 
 A validação de adequação será complementada com três tarefas de Felipe: identificar demanda e prazo, explicar a sequência de etapas e registrar uma situação de comunicação com encaminhamento e aprendizado. Registrar conclusão, ajuda necessária e observação em ficha breve identificada e datada. Não existe resultado de aceite declarado nesta entrega.
+
+## Reparo de compatibilidade Windows
+
+A execução enviada pelo estudante em 06/11/2026 usou Python 3.15 no Windows e concluiu 32 testes com 15 erros de limpeza de arquivos temporários (WinError 32). O repositório estava dois commits à frente do remoto; o push não ocorreu.
+
+D03: o contexto `with sqlite3.connect(...)` confirma/reverte transações, mas não fecha a conexão. Foi acrescentado `contextlib.closing`, preservando o contexto transacional, na inicialização, backup, consultas dos testes e scripts. A remoção de bancos temporários continua obrigatória; não foram ignorados erros de limpeza.
+
+Q11 retém referências às conexões abertas na inicialização, consulta e backup e verifica que todas estejam fechadas após as operações. O teste falhou antes e passou após a correção. A suíte completa passou com 33 testes em Linux, com ResourceWarning tratado como erro. Evidências: recurso_antes_reparo.txt e testes_reparo_linux.txt. A confirmação no Windows permanece pendente até nova execução pelo estudante.
+
+Referência: Python Software Foundation, sqlite3, seção How to use the connection context manager. https://docs.python.org/3/library/sqlite3.html#how-to-use-the-connection-context-manager (acesso em 06/11/2026).

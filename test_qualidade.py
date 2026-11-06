@@ -1,6 +1,7 @@
 """Regressão complementar do módulo 4; usa somente bases descartáveis."""
 import re
 import shutil
+from contextlib import closing
 import sqlite3
 import tempfile
 import unittest
@@ -61,7 +62,7 @@ class QualityTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             shutil.copy2(backup,Path(folder)/'dados.sqlite3')
             app=create_app(folder,{'TESTING':True,'PASSWORD_HASH':self.h.hash})
-            with sqlite3.connect(app.config['DATABASE']) as c:
+            with closing(sqlite3.connect(app.config['DATABASE'])) as c, c:
                 self.assertEqual(c.execute('SELECT COUNT(*) FROM demands').fetchone()[0],1)
                 self.assertEqual(c.execute('SELECT COUNT(*) FROM history').fetchone()[0],1)
                 self.assertEqual(c.execute('PRAGMA integrity_check').fetchone()[0],'ok')
@@ -95,11 +96,31 @@ class QualityTests(unittest.TestCase):
         self.assertEqual(self.h.count('demands'),0)
 
     def test_q10_atomic_write_when_history_fails(self):
-        with sqlite3.connect(self.h.app.config['DATABASE']) as c:
+        with closing(sqlite3.connect(self.h.app.config['DATABASE'])) as c, c:
             c.execute("CREATE TRIGGER reject_history BEFORE INSERT ON history BEGIN SELECT RAISE(ABORT,'falha de teste'); END")
         with self.assertRaises(sqlite3.IntegrityError):
             self.h.demand()
         self.assertEqual(self.h.count('demands'),0)
         self.assertEqual(self.h.count('history'),0)
+
+    def test_q11_connections_closed_after_initialization_requests_and_backup(self):
+        original_connect = sqlite3.connect
+        connections = []
+        def tracked(*args, **kwargs):
+            connection = original_connect(*args, **kwargs)
+            connections.append(connection)
+            return connection
+        try:
+            with patch('app.sqlite3.connect', side_effect=tracked):
+                create_app(self.h.tmp.name, {'TESTING': True, 'PASSWORD_HASH': self.h.hash})
+                self.h.client.get('/')
+                self.h.post('/backup')
+            self.assertGreaterEqual(len(connections), 4)
+            for connection in connections:
+                with self.assertRaises(sqlite3.ProgrammingError):
+                    connection.execute('SELECT 1')
+        finally:
+            for connection in connections:
+                connection.close()
 
 if __name__=='__main__': unittest.main(verbosity=2)

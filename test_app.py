@@ -1,3 +1,4 @@
+from contextlib import closing
 import sqlite3
 import tempfile
 import unittest
@@ -38,7 +39,7 @@ class ApplicationTests(unittest.TestCase):
         return self.post('/demandas/nova', **vals)
 
     def count(self, table):
-        with sqlite3.connect(self.app.config['DATABASE']) as c:
+        with closing(sqlite3.connect(self.app.config['DATABASE'])) as c, c:
             return c.execute('SELECT COUNT(*) FROM ' + table).fetchone()[0]
 
     def test_01_protected_access(self):
@@ -62,7 +63,7 @@ class ApplicationTests(unittest.TestCase):
         self.assertEqual(self.demand().status_code, 200)
         self.assertEqual(self.count('demands'), 1)
         second = create_app(self.tmp.name, {'TESTING': True, 'PASSWORD_HASH': self.hash})
-        with sqlite3.connect(second.config['DATABASE']) as c:
+        with closing(sqlite3.connect(second.config['DATABASE'])) as c, c:
             self.assertEqual(c.execute('SELECT title FROM demands').fetchone()[0], 'Conteúdo demonstrativo')
 
     def test_05_invalid_demand(self):
@@ -113,7 +114,7 @@ class ApplicationTests(unittest.TestCase):
         self.login(); self.demand(); self.post('/backup')
         backups = list((Path(self.tmp.name)/'backups').glob('*.sqlite3'))
         self.assertEqual(len(backups), 1)
-        with sqlite3.connect(backups[0]) as c:
+        with closing(sqlite3.connect(backups[0])) as c, c:
             self.assertEqual(c.execute('SELECT COUNT(*) FROM demands').fetchone()[0], 1)
 
     def test_13_api_and_not_found(self):
