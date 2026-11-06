@@ -171,7 +171,7 @@ def create_app(data_dir=None, test_config=None):
                 if category not in CATEGORIES or status not in ('Aberto', 'Encerrado'):
                     raise ValueError('Categoria ou situação inválida.')
                 demand_id = int(request.form['demand_id']) if request.form.get('demand_id') else None
-                if demand_id and not db().execute('SELECT id FROM demands WHERE id=?', (demand_id,)).fetchone():
+                if demand_id is not None and not db().execute('SELECT id FROM demands WHERE id=?', (demand_id,)).fetchone():
                     raise ValueError('Demanda inexistente.')
                 if status == 'Encerrado' and (not action or not lesson):
                     raise ValueError('Para encerrar, informe encaminhamento e aprendizado.')

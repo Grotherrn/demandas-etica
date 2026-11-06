@@ -1,0 +1,37 @@
+test_01_protected_access (test_app.ApplicationTests.test_01_protected_access) ... ok
+test_02_login_logout (test_app.ApplicationTests.test_02_login_logout) ... ok
+test_03_csrf_rejected (test_app.ApplicationTests.test_03_csrf_rejected) ... ok
+test_04_demand_and_persistence (test_app.ApplicationTests.test_04_demand_and_persistence) ... ok
+test_05_invalid_demand (test_app.ApplicationTests.test_05_invalid_demand) ... ok
+test_06_history (test_app.ApplicationTests.test_06_history) ... ok
+test_07_filters (test_app.ApplicationTests.test_07_filters) ... ok
+test_08_incident_optional_link (test_app.ApplicationTests.test_08_incident_optional_link) ... ok
+test_09_incident_missing_link_rejected (test_app.ApplicationTests.test_09_incident_missing_link_rejected) ... ok
+test_10_incident_closure (test_app.ApplicationTests.test_10_incident_closure) ... ok
+test_11_xss_and_sql_parameters (test_app.ApplicationTests.test_11_xss_and_sql_parameters) ... ok
+test_12_backup (test_app.ApplicationTests.test_12_backup) ... ok
+test_13_api_and_not_found (test_app.ApplicationTests.test_13_api_and_not_found) ... ok
+test_14_overdue_excludes_closed (test_app.ApplicationTests.test_14_overdue_excludes_closed) ... ok
+test_delete_parent_blocked (test_banco.DatabaseTests.test_delete_parent_blocked) ... ok
+test_demo_crud_and_queries (test_banco.DatabaseTests.test_demo_crud_and_queries) ... ok
+test_foreign_key_rejects_orphan (test_banco.DatabaseTests.test_foreign_key_rejects_orphan) ... ok
+test_incident_link_optional (test_banco.DatabaseTests.test_incident_link_optional) ... ok
+test_not_null (test_banco.DatabaseTests.test_not_null) ... ok
+test_primary_key_unique (test_banco.DatabaseTests.test_primary_key_unique) ... ok
+test_reopen_existing_schema_preserves_data (test_banco.DatabaseTests.test_reopen_existing_schema_preserves_data) ... ok
+test_rollback_keeps_stage (test_banco.DatabaseTests.test_rollback_keeps_stage) ... ok
+test_q01_due_window_fixed_clock (test_qualidade.QualityTests.test_q01_due_window_fixed_clock) ... ok
+test_q02_text_boundaries (test_qualidade.QualityTests.test_q02_text_boundaries) ... ok
+test_q03_incident_closure_decision_table (test_qualidade.QualityTests.test_q03_incident_closure_decision_table) ... ok
+test_q04_invalid_incident_links (test_qualidade.QualityTests.test_q04_invalid_incident_links) ... ok
+test_q05_backup_restore_in_isolated_folder (test_qualidade.QualityTests.test_q05_backup_restore_in_isolated_folder) ... ok
+test_q06_api_methods_and_headers (test_qualidade.QualityTests.test_q06_api_methods_and_headers) ... ok
+test_q07_invalid_csrf_no_write (test_qualidade.QualityTests.test_q07_invalid_csrf_no_write) ... ok
+test_q08_history_stage_transitions (test_qualidade.QualityTests.test_q08_history_stage_transitions) ... ok
+test_q09_oversized_request (test_qualidade.QualityTests.test_q09_oversized_request) ... ok
+test_q10_atomic_write_when_history_fails (test_qualidade.QualityTests.test_q10_atomic_write_when_history_fails) ... ok
+
+----------------------------------------------------------------------
+Ran 32 tests in 1.730s
+
+OK

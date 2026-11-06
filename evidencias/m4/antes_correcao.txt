@@ -1,0 +1,64 @@
+test_q01_due_window_fixed_clock (test_qualidade.QualityTests.test_q01_due_window_fixed_clock) ... ok
+test_q02_text_boundaries (test_qualidade.QualityTests.test_q02_text_boundaries) ... ok
+test_q03_incident_closure_decision_table (test_qualidade.QualityTests.test_q03_incident_closure_decision_table) ... ok
+test_q04_invalid_incident_links (test_qualidade.QualityTests.test_q04_invalid_incident_links) ... 
+  test_q04_invalid_incident_links (test_qualidade.QualityTests.test_q04_invalid_incident_links) (link='0') ... ERROR
+test_q05_backup_restore_in_isolated_folder (test_qualidade.QualityTests.test_q05_backup_restore_in_isolated_folder) ... ok
+test_q06_api_methods_and_headers (test_qualidade.QualityTests.test_q06_api_methods_and_headers) ... ok
+test_q07_invalid_csrf_no_write (test_qualidade.QualityTests.test_q07_invalid_csrf_no_write) ... ok
+test_q08_history_stage_transitions (test_qualidade.QualityTests.test_q08_history_stage_transitions) ... ok
+test_q09_oversized_request (test_qualidade.QualityTests.test_q09_oversized_request) ... ok
+test_q10_atomic_write_when_history_fails (test_qualidade.QualityTests.test_q10_atomic_write_when_history_fails) ... ok
+
+======================================================================
+ERROR: test_q04_invalid_incident_links (test_qualidade.QualityTests.test_q04_invalid_incident_links) (link='0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/scratch/86443ddce047/tmp/demandas_m4/test_qualidade.py", line 54, in test_q04_invalid_incident_links
+    r=self.h.post('/incidentes/novo',title='Revisão',category='Uso de IA',description='Texto de teste',impact='Ambiguidade',status='Aberto',demand_id=link)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/demandas_m4/test_app.py", line 30, in post
+    return self.client.post(path, data={'csrf': token, **data}, follow_redirects=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/werkzeug/test.py", line 1171, in post
+    return self.open(*args, **kw)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/flask/testing.py", line 235, in open
+    response = super().open(
+               ^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/werkzeug/test.py", line 1120, in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/werkzeug/test.py", line 992, in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/werkzeug/test.py", line 1268, in run_wsgi_app
+    app_rv = app(environ, start_response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/flask/app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/flask/app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/pi2venv/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/scratch/86443ddce047/tmp/demandas_m4/app.py", line 184, in incident
+    item_id = db().execute('INSERT INTO incidents(demand_id,title,category,description,impact,action,lesson,status,created_at,updated_at) VALUES(?,?,?,?,?,?,?,?,?,?)', vals + (stamp, stamp)).lastrowid
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+sqlite3.IntegrityError: FOREIGN KEY constraint failed
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.769s
+
+FAILED (errors=1)
